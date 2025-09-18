@@ -9,7 +9,7 @@ public class Main {
 
 
         Customer cliente = new Customer("c1", 12345678910L);
-        System.out.println("Cliente criado: " + cliente.GetName());
+        System.out.println("Cliente criado: " + cliente.getName());
         System.out.println("----------------------------\n");
         
         Estoque estoque1 = new Estoque();

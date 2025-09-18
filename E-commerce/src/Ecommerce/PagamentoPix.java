@@ -1,8 +1,6 @@
 package Ecommerce;
 
 public class PagamentoPix extends Pagamento{
- //sobrescrevendo processar
-
     public PagamentoPix(double valor) {
         super(valor);
     }

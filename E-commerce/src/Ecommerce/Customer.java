@@ -16,20 +16,17 @@ public class Customer {
       this.name = name;
       this.CPF = CPF;
    }
-   public String GetName(){
+   public String getName(){
       return this.name;
    }
-   public long GetCPF(){
+   public long getCPF(){
       return this.CPF;
    }
-   void SetName(String name){
+   void setName(String name){
       this.name = name;
    }
-   // void SetCPF(long CPF){
+   // void setCPF(long CPF){
    //    this.CPF = CPF;
    // }
    
 }
- /*    ▪ Agregação (relação fraca)
-    ▪ Pedido agrega um Cliente.
-    ▪ Cliente existe independente do Pedido. */

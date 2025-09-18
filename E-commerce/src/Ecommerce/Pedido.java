@@ -18,12 +18,4 @@ public class Pedido {
     }
 }
 
-// adicionar as formar de calcular frete adcionar isso no valor das coisas e arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados
-
-/*
-
-    ▪ Composição (relação “parte-todo” forte)
-    ▪ Pedido tem ItemPedido (lista interna).
-    ▪ Se Pedido for removido, seus ItemPedido também são — vida atrelada ao todo.
-
- */
+// adicionar as formar de calcular frete adcionar isso no valor das coisas e arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados, fazer a parte de remocao dos produtos
