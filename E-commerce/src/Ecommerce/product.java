@@ -58,6 +58,10 @@ public abstract class product {
    void SetCode(String code){
       this.code=code;
    }
+   
+   public double getPrice(){
+      return this.price;
+   }
    public abstract double frete();
 }
 /*

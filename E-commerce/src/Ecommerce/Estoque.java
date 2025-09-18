@@ -12,5 +12,5 @@ public class Estoque {
     public void remuveItens(product product){
         this.itens.remove(product);
     }
-
+//arrumar os metodos de remover as coisas
 }
