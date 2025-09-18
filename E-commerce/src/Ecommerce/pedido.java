@@ -16,6 +16,9 @@ public class pedido {
         ItensPedidos novoItem = new ItensPedidos(produto, quantidade);
         this.itens.add(novoItem);
     }
+    public void realizarPagamento(Pagamento formaPagamento) {
+        formaPagamento.processar();
+    }
 
 }
 /*
