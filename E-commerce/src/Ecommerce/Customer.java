@@ -1,28 +1,28 @@
 package Ecommerce;
 
-public class cliente {
+public class Customer {
 
    private String name;
    private long CPF;
 
 
    //construtor padrao
-   public cliente(){
+   public Customer(){
       this.name = "user";
       this.CPF = 12345678910L;
    }
    //construtor parametrizado
-   public cliente(String name, long CPF){
+   public Customer(String name, long CPF){
       this.name = name;
       this.CPF = CPF;
    }
-   public String Getname(){
+   public String GetName(){
       return this.name;
    }
    public long GetCPF(){
       return this.CPF;
    }
-   void Setname(String name){
+   void SetName(String name){
       this.name = name;
    }
    // void SetCPF(long CPF){

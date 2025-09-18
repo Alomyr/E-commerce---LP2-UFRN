@@ -2,7 +2,7 @@ package Ecommerce;
 
 public class pedido {
 
-    private cliente cliente;
+    private Customer customer;
 
 }
 /*
