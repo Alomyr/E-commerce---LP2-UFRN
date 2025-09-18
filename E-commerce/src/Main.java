@@ -18,7 +18,7 @@ public class Main {
         System.out.println("Produto adicionado ao estoque: " + pc.getName());
 
         ProductF fone = new ProductF("fone", 15, 8, 2, estoque1);
-        System.out.println("Produto adicionado ao estoque: " + pc.getName());
+        System.out.println("Produto adicionado ao estoque: " + fone.getName());
         
         System.out.println("--- 3. Criando um Pedido ---");
         Pedido pedido1 = new Pedido(cliente);

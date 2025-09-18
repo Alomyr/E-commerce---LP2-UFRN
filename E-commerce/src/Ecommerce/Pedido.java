@@ -17,6 +17,9 @@ public class Pedido {
         this.itens.add(novoItem);
     }
 }
+
+// adicionar as formar de calcular frete adcionar isso no valor das coisas e arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados
+
 /*
 
     ▪ Composição (relação “parte-todo” forte)
