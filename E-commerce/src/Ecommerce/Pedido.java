@@ -3,23 +3,19 @@ package Ecommerce;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pedido {
+public class Pedido {
 
     private Customer customer;
 
     private List<ItensPedidos> itens = new ArrayList<>();
 
-    public pedido(){
+    public Pedido(Customer customer){
         this.customer = customer;
     }
     public void adicionarItem(product produto, int quantidade) {
         ItensPedidos novoItem = new ItensPedidos(produto, quantidade);
         this.itens.add(novoItem);
     }
-    public void realizarPagamento(Pagamento formaPagamento) {
-        formaPagamento.processar();
-    }
-
 }
 /*
 

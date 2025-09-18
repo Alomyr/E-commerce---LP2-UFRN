@@ -61,7 +61,10 @@ public abstract class product {
    
    public double getPrice(){
       return this.price;
-   }
+   } 
+   public String getName(){
+   return this.name;
+}
    public abstract double frete();
 }
 /*
