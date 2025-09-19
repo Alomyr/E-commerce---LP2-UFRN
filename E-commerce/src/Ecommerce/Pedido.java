@@ -37,4 +37,9 @@ public class Pedido {
             this.estoque.removerItensPorQuantidade(item.getProduto().getCode(), item.getqtd());
         }
     }
+    public void realizarPagamento(Pagamento pagto) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'realizarPagamento'");
+    }
+
 }

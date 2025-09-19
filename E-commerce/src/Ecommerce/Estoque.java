@@ -30,4 +30,12 @@ public class Estoque {
         }
         System.out.println("Produto com código " + codigo + " não encontrado no estoque.");
     }
+        public product buscarProdutoPorCodigo(String codigoProduto) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'buscarProdutoPorCodigo'");
+        }
+        public void listarItens() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'listarItens'");
+        }
 }
