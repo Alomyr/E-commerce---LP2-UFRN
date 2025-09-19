@@ -29,25 +29,18 @@ public abstract class product {
    }
 
    private static String gerarCodigo() {
-        // Parte fixa
         String parteFixa = "2025";
 
-        // Gerar a primeira letra aleatória
         char letra1 = CARACTERES_ALFABETICOS.charAt(RANDOM.nextInt(CARACTERES_ALFABETICOS.length()));
 
-        // Gerar o primeiro número aleatório (entre 0 e 99)
         int numero1 = RANDOM.nextInt(100);
 
-        // Gerar a segunda letra aleatória
         char letra2 = CARACTERES_ALFABETICOS.charAt(RANDOM.nextInt(CARACTERES_ALFABETICOS.length()));
 
-        // Gerar o segundo número aleatório (entre 0 e 9)
         int numero2 = RANDOM.nextInt(10);
         
-        // Formatar o número para ter pelo menos 2 dígitos, se necessário (ex: 7 -> 07)
         String numero1Formatado = String.format("%02d", numero1);
         
-        // Combinar todas as partes
         return parteFixa + letra1 + numero1Formatado + letra2 + numero2;
     }
 

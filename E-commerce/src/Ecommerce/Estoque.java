@@ -52,7 +52,6 @@ public class Estoque {
             }
         }
     }
-    // Adicione este método à sua classe Estoque
     public void aumentarQuantidade(String codigo, int quantidadeParaAdicionar) {
         for (product item : itens) {
             if (item.getCode().equals(codigo)) {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
  
-public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados
+public class Main {
     public static void main(String[] args) throws Exception {
 
 
@@ -82,7 +82,7 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
                     break;
                 case 2:
                     System.out.println("\n--- PRODUTOS EM ESTOQUE ---");
-                    estoque.listarItens(); // Você precisaria adicionar este método na sua classe Estoque
+                    estoque.listarItens();
                     break;
                 case 0:
                     break;
@@ -160,12 +160,11 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
                     break;
                 case 5:
                     finalizarCompra(scanner, pedido);
-                    opcaoPedido = 0; // Sai do loop de gerenciamento
+                    opcaoPedido = 0;
                     break;
                 case 0:
                     System.out.println("Pedido cancelado. Os itens foram devolvidos ao estoque.");
-                    // Lógica para devolver todos os itens do pedido ao estoque, se necessário
-                    return; // Retorna para o menu principal
+                    return; 
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
