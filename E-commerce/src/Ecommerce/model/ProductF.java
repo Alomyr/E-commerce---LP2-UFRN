@@ -1,9 +1,11 @@
-package Ecommerce;
+package Ecommerce.model;
+
+import Ecommerce.service.Estoque;
 
 public class ProductF extends product{
 
     private double peso;
-    private double taxa = 5.5;
+    private double taxa = 0.5;
 
     public ProductF(String name, double price, double peso,int qtd, Estoque estoque) {
         super(name, price, qtd);

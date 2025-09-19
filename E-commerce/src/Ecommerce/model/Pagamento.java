@@ -1,4 +1,4 @@
-package Ecommerce;
+package Ecommerce.model;
 
 public abstract class Pagamento {
     

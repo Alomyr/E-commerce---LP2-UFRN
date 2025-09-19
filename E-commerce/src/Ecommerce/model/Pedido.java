@@ -1,5 +1,6 @@
-package Ecommerce;
+package Ecommerce.model;
 
+import Ecommerce.service.Estoque;
 import java.util.ArrayList;
 import java.util.List;
 

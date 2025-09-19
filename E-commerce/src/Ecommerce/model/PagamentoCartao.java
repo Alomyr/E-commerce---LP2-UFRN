@@ -1,4 +1,4 @@
-package Ecommerce;
+package Ecommerce.model;
 
 public class PagamentoCartao extends Pagamento {
  //sobrescrevendo processar

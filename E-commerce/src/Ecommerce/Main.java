@@ -1,12 +1,13 @@
+package Ecommerce;
 
-import Ecommerce.Customer;
-import Ecommerce.Estoque;
-import Ecommerce.Pagamento;
-import Ecommerce.PagamentoCartao;
-import Ecommerce.PagamentoPix;
-import Ecommerce.Pedido;
-import Ecommerce.ProductF;
-import Ecommerce.product;
+import Ecommerce.model.Customer;
+import Ecommerce.model.Pagamento;
+import Ecommerce.model.PagamentoCartao;
+import Ecommerce.model.PagamentoPix;
+import Ecommerce.model.Pedido;
+import Ecommerce.model.ProductF;
+import Ecommerce.model.product;
+import Ecommerce.service.Estoque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

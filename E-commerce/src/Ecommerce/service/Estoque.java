@@ -1,7 +1,9 @@
-package Ecommerce;
+package Ecommerce.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Ecommerce.model.product;
 
 public class Estoque {
 

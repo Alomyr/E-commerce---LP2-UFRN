@@ -1,4 +1,4 @@
-package Ecommerce;
+package Ecommerce.model;
 
 public class PagamentoPix extends Pagamento{
     public PagamentoPix(double valor) {

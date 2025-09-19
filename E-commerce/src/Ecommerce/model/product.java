@@ -1,4 +1,4 @@
-package Ecommerce;
+package Ecommerce.model;
 
 import java.util.Random;
 
