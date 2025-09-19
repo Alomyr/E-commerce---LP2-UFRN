@@ -6,7 +6,6 @@ import Ecommerce.model.PagamentoCartao;
 import Ecommerce.model.PagamentoPix;
 import Ecommerce.model.Pedido;
 import Ecommerce.model.ProductF;
-import Ecommerce.model.product;
 import Ecommerce.service.Estoque;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,22 +176,12 @@ public class Main {
         System.out.print("Código do produto: ");
         String codigoProduto = scanner.nextLine();
         
-        product produtoEncontrado = estoque.buscarProdutoPorCodigo(codigoProduto);
-        
-        if (produtoEncontrado != null) {
-            System.out.print("Quantidade desejada: ");
-            int quantidade = scanner.nextInt();
-            scanner.nextLine();
+        System.out.print("Quantidade desejada: ");
+        int quantidade = scanner.nextInt();
+        scanner.nextLine();
 
-            if (quantidade <= produtoEncontrado.getqtd()) {
-                pedido.adicionarItem(produtoEncontrado, quantidade);
-                System.out.println(quantidade + "x " + produtoEncontrado.getName() + " adicionado ao pedido.");
-            } else {
-                System.out.println("Quantidade insuficiente em estoque.");
-            }
-        } else {
-            System.out.println("Produto não encontrado.");
-        }
+        // Chamada simplificada para o novo método sobrecarregado
+        pedido.adicionarItem(codigoProduto, quantidade);
     }
     
     private static void removerItemDoPedido(Scanner scanner, Pedido pedido) {

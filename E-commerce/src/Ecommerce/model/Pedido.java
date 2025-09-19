@@ -18,6 +18,25 @@ public class Pedido {
         ItensPedidos novoItem = new ItensPedidos(produto, quantidade);
         this.itens.add(novoItem);
     }
+
+    public void adicionarItem(String codigoProduto, int quantidade) {
+    // Busca o produto no estoque usando o código
+        product produtoEncontrado = this.estoque.buscarProdutoPorCodigo(codigoProduto);
+
+        if (produtoEncontrado != null) {
+            // Verifica se a quantidade está disponível antes de adicionar
+            if (quantidade <= produtoEncontrado.getqtd()) {
+                this.adicionarItem(produtoEncontrado, quantidade); // Chama o método original
+                this.estoque.removerItensPorQuantidade(codigoProduto, quantidade); // Remove do estoque
+                System.out.println(quantidade + "x " + produtoEncontrado.getName() + " adicionado ao pedido.");
+            } else {
+                System.out.println("Quantidade insuficiente em estoque para " + produtoEncontrado.getName());
+            }
+        } else {
+            System.out.println("Produto com código " + codigoProduto + " não encontrado no estoque.");
+        }
+    }
+
     public double calcularTotal(){
         double total=0.0;
          for (ItensPedidos item : itens) {
