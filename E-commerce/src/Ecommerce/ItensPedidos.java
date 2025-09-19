@@ -18,6 +18,9 @@ public class ItensPedidos{
     public int getqtd(){
       return this.quantidade;
    }
+    void setqtd(int qtd){
+        this.quantidade = qtd;
+    }
     
 }
 

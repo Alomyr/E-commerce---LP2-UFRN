@@ -9,8 +9,9 @@ public class Pedido {
     private List<ItensPedidos> itens = new ArrayList<>();
     private Estoque estoque;
 
-    public Pedido(Customer customer){
+    public Pedido(Customer customer, Estoque estoque){
         this.customer = customer;
+        this.estoque = estoque;
     }
     public void adicionarItem(product produto, int quantidade) {
         ItensPedidos novoItem = new ItensPedidos(produto, quantidade);
@@ -26,7 +27,6 @@ public class Pedido {
       public double calcularFreteTotal() {
         double freteTotal = 0.0;
         for (ItensPedidos item : itens) {
-            // Chama o método frete() de cada produto (Polimorfismo!)
             freteTotal += item.getProduto().frete();
         }
         return freteTotal;
@@ -38,8 +38,54 @@ public class Pedido {
         }
     }
     public void realizarPagamento(Pagamento pagto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'realizarPagamento'");
+        pagto.processar();
+        darBaixaNoEstoque();
+    }
+public void removerItem(String codigoProduto) {
+    ItensPedidos itemParaRemover = null;
+    for (ItensPedidos item : itens) {
+        if (item.getProduto().getCode().equals(codigoProduto)) {
+            itemParaRemover = item;
+            break;
+        }
     }
 
+    if (itemParaRemover != null) {
+        this.estoque.aumentarQuantidade(itemParaRemover.getProduto().getCode(), itemParaRemover.getqtd());
+        this.itens.remove(itemParaRemover);
+        System.out.println("Item com código " + codigoProduto + " removido do pedido.");
+    } else {
+        System.out.println("Item não encontrado no pedido.");
+    }
+}
+
+    public void atualizarQuantidade(String codigoProduto, int novaQuantidade) {
+        ItensPedidos itemParaAtualizar = null;
+        for (ItensPedidos item : itens) {
+            if (item.getProduto().getCode().equals(codigoProduto)) {
+                itemParaAtualizar = item;
+                break;
+            }
+        }
+
+        if (itemParaAtualizar != null) {
+            int quantidadeAnterior = itemParaAtualizar.getqtd();
+            int diferenca = novaQuantidade - quantidadeAnterior;
+
+            if (diferenca > 0) {
+                this.estoque.removerItensPorQuantidade(codigoProduto, diferenca);
+            } else if (diferenca < 0) {
+                this.estoque.aumentarQuantidade(codigoProduto, -diferenca);
+            }
+
+            if (novaQuantidade > 0) {
+                itemParaAtualizar.setqtd(novaQuantidade);
+                System.out.println("Quantidade do item " + itemParaAtualizar.getProduto().getName() + " atualizada para " + novaQuantidade + ".");
+            } else {
+                removerItem(codigoProduto);
+            }
+        } else {
+            System.out.println("Item não encontrado no pedido.");
+        }
+    }
 }

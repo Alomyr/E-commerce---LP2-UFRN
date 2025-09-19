@@ -7,7 +7,6 @@ import Ecommerce.PagamentoPix;
 import Ecommerce.Pedido;
 import Ecommerce.ProductF;
 import Ecommerce.product;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +15,7 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
     public static void main(String[] args) throws Exception {
 
 
-        Customer cliente = new Customer("c1", 12345678910L);
+        Customer cliente = new Customer("User", 12345678910L);
         Estoque estoque = new Estoque();
         List<Customer> clientes = new ArrayList<>();
         
@@ -130,7 +129,7 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
             return;
         }
 
-        Pedido pedido = new Pedido(clienteDoPedido, estoque); // Agregação de Customer e Estoque
+        Pedido pedido = new Pedido(clienteDoPedido, estoque);
         
         String adicionarMais = "sim";
         while (adicionarMais.equalsIgnoreCase("sim")) {
@@ -159,6 +158,7 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
         }
         
         System.out.println("\n--- RESUMO DO PEDIDO ---");
+        System.out.println("Cliente: " + clienteDoPedido.getName() + " CPF: " + clienteDoPedido.getCPF());
         System.out.println("Total do pedido: R$ " + pedido.calcularTotal());
         System.out.println("Frete total: R$ " + pedido.calcularFreteTotal());
         double valorFinal = pedido.calcularTotal() + pedido.calcularFreteTotal();
@@ -167,10 +167,10 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
         System.out.print("\nEscolha a forma de pagamento (Cartao/Pix): ");
         String formaPagamento = scanner.nextLine();
         
-        if (formaPagamento.equalsIgnoreCase("Cartao")) {
+        if (formaPagamento.equalsIgnoreCase("Cartao")||formaPagamento.equalsIgnoreCase("C")||formaPagamento.equalsIgnoreCase("c")) {
             Pagamento pagto = new PagamentoCartao(valorFinal);
             pedido.realizarPagamento(pagto);
-        } else if (formaPagamento.equalsIgnoreCase("Pix")) {
+        } else if (formaPagamento.equalsIgnoreCase("Pix")||formaPagamento.equalsIgnoreCase("p")||formaPagamento.equalsIgnoreCase("P")) {
             Pagamento pagto = new PagamentoPix(valorFinal);
             pedido.realizarPagamento(pagto);
         } else {

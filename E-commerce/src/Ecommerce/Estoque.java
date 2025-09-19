@@ -30,12 +30,38 @@ public class Estoque {
         }
         System.out.println("Produto com código " + codigo + " não encontrado no estoque.");
     }
-        public product buscarProdutoPorCodigo(String codigoProduto) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'buscarProdutoPorCodigo'");
+    public product buscarProdutoPorCodigo(String codigo) {
+        for (product item : this.itens) {
+            if (item.getCode().equals(codigo)) {
+                return item;
+            }
         }
-        public void listarItens() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'listarItens'");
+        return null;
+    }
+    public void listarItens() {
+        if (this.itens.isEmpty()) {
+            System.out.println("O estoque está vazio.");
+        } else {
+            System.out.println("--- Produtos em Estoque ---");
+            for (product item : this.itens) {
+                System.out.println("Nome: " + item.getName());
+                System.out.println("Código: " + item.getCode());
+                System.out.println("Preço: R$ " + item.getPrice());
+                System.out.println("Quantidade: " + item.getqtd());
+                System.out.println("--------------------------");
+            }
         }
+    }
+    // Adicione este método à sua classe Estoque
+    public void aumentarQuantidade(String codigo, int quantidadeParaAdicionar) {
+        for (product item : itens) {
+            if (item.getCode().equals(codigo)) {
+                int novaQuantidade = item.getqtd() + quantidadeParaAdicionar;
+                item.setQuantidade(novaQuantidade);
+                System.out.println("Estoque atualizado para o produto " + item.getName() + ". Nova quantidade: " + novaQuantidade);
+                return;
+            }
+        }
+        System.out.println("Erro: Produto com código " + codigo + " não encontrado para adicionar ao estoque.");
+    }
 }
