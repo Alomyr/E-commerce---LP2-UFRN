@@ -6,8 +6,8 @@ import java.util.List;
 public class Pedido {
 
     private Customer customer;
-
     private List<ItensPedidos> itens = new ArrayList<>();
+    private Estoque estoque;
 
     public Pedido(Customer customer){
         this.customer = customer;
@@ -30,6 +30,12 @@ public class Pedido {
             freteTotal += item.getProduto().frete();
         }
         return freteTotal;
+    }
+    private void darBaixaNoEstoque() {
+        System.out.println("Dando baixa nos itens do estoque...");
+        for (ItensPedidos item : itens) {
+            this.estoque.removerItensPorQuantidade(item.getProduto().getCode(), item.getqtd());
+        }
     }
 }
 

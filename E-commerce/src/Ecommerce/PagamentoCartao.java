@@ -6,7 +6,6 @@ public class PagamentoCartao extends Pagamento {
         super(valor);
     }
 
-
     @Override
     public void processar() {
         System.out.println("Processando pagamento via Cartão de Crédito no valor de R$ " + this.val);

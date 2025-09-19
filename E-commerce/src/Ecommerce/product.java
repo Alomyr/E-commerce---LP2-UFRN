@@ -68,6 +68,9 @@ public abstract class product {
    public int getqtd(){
       return this.quantidade;
    }
+   public String getCode(){
+   return this.code;
+   }
    public void setQuantidade(int quantidade) {
       this.quantidade = quantidade;
     }

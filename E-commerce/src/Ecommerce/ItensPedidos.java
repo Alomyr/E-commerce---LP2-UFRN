@@ -15,6 +15,9 @@ public class ItensPedidos{
     public product getProduto() {
         return this.product;
     }
+    public int getqtd(){
+      return this.quantidade;
+   }
     
 }
 
