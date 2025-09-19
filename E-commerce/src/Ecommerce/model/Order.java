@@ -59,7 +59,7 @@ public class Order {
     }
     public void makePayment(Payment pagto) {
         pagto.process();
-        DropInStock();
+        DropInStock(); //esta removendo de forma duplicada
     }
 public void removeItem(String codeProduct) {
     OrderedItems itemToRemove = null;
