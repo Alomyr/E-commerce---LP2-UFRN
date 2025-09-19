@@ -38,5 +38,3 @@ public class Pedido {
         }
     }
 }
-
-//  arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados, fazer a parte de remocao dos produtos

@@ -4,7 +4,7 @@ import Ecommerce.Estoque;
 import Ecommerce.Pedido;
 import Ecommerce.ProductF;
  
-public class Main {
+public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados
     public static void main(String[] args) throws Exception {
 
 
