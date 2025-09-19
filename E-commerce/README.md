@@ -32,15 +32,15 @@ O projeto foi estruturado para ilustrar os principais conceitos de POO:
 
 ## 🚀 Como Executar o Projeto
 
-    Compile as classes: Navegue até o diretório src/Ecommerce e use o compilador Java.
-    Bash
+Compile as classes: Navegue até o diretório src/Ecommerce e use o compilador Java.
+Bash
 
-javac *.java
+    javac *.java
 
 Execute o programa: A partir do mesmo diretório, execute a classe principal.
 Bash
 
-java Main
+    java Main
 
 Interaja com o Menu: Siga as instruções no terminal para navegar entre as opções de gerenciamento de estoque, cadastro de clientes e realização de pedidos.
 
