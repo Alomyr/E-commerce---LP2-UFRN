@@ -105,13 +105,13 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
         System.out.println("Cliente " + novoCliente.getName() + " cadastrado com sucesso.");
     }
     
-    public static void fazerPedido(Scanner scanner, Estoque estoque, List<Customer> clientes) {
+ public static void fazerPedido(Scanner scanner, Estoque estoque, List<Customer> clientes) {
         if (clientes.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado. Por favor, crie um cliente primeiro.");
             return;
         }
 
-        System.out.println("\n--- FAZER UM PEDIDO ---");
+        System.out.println("\n--- INICIANDO UM NOVO PEDIDO ---");
         System.out.print("Digite o CPF do cliente para o pedido: ");
         long cpfBusca = scanner.nextLong();
         scanner.nextLine();
@@ -131,50 +131,108 @@ public class Main {//arrumar clientes, arrumar estoque e fazer o menu interativo
 
         Pedido pedido = new Pedido(clienteDoPedido, estoque);
         
-        String adicionarMais = "sim";
-        while (adicionarMais.equalsIgnoreCase("sim")) {
-            System.out.print("Digite o código do produto para adicionar ao pedido: ");
-            String codigoProduto = scanner.nextLine();
+        int opcaoPedido = -1;
+        while (opcaoPedido != 0) {
+            System.out.println("\n--- GERENCIAR PEDIDO ---");
+            System.out.println("Cliente: " + clienteDoPedido.getName());
+            System.out.println("1. Adicionar Item");
+            System.out.println("2. Remover Item");
+            System.out.println("3. Atualizar Quantidade de um Item");
+            System.out.println("4. Visualizar Resumo do Pedido");
+            System.out.println("5. Finalizar Compra e Pagar");
+            System.out.println("0. Cancelar Pedido e Voltar");
+            System.out.print("Escolha uma opção: ");
+            opcaoPedido = scanner.nextInt();
+            scanner.nextLine();
             
-            product produtoEncontrado = estoque.buscarProdutoPorCodigo(codigoProduto);
-
-            if (produtoEncontrado != null) {
-                System.out.print("Digite a quantidade: ");
-                int quantidade = scanner.nextInt();
-                scanner.nextLine();
-
-                if (quantidade <= produtoEncontrado.getqtd()) {
-                    pedido.adicionarItem(produtoEncontrado, quantidade);
-                    System.out.println(quantidade + "x " + produtoEncontrado.getName() + " adicionado ao pedido.");
-                } else {
-                    System.out.println("Quantidade insuficiente em estoque.");
-                }
-            } else {
-                System.out.println("Produto não encontrado.");
+            switch (opcaoPedido) {
+                case 1:
+                    adicionarItemAoPedido(scanner, estoque, pedido);
+                    break;
+                case 2:
+                    removerItemDoPedido(scanner, pedido);
+                    break;
+                case 3:
+                    atualizarQuantidadeItem(scanner, pedido);
+                    break;
+                case 4:
+                    visualizarResumo(pedido);
+                    break;
+                case 5:
+                    finalizarCompra(scanner, pedido);
+                    opcaoPedido = 0; // Sai do loop de gerenciamento
+                    break;
+                case 0:
+                    System.out.println("Pedido cancelado. Os itens foram devolvidos ao estoque.");
+                    // Lógica para devolver todos os itens do pedido ao estoque, se necessário
+                    return; // Retorna para o menu principal
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
             }
-            
-            System.out.print("Adicionar mais itens? (sim/nao): ");
-            adicionarMais = scanner.nextLine();
         }
+    }
+    
+    private static void adicionarItemAoPedido(Scanner scanner, Estoque estoque, Pedido pedido) {
+        System.out.println("\n--- ADICIONAR ITEM ---");
+        System.out.print("Código do produto: ");
+        String codigoProduto = scanner.nextLine();
         
+        product produtoEncontrado = estoque.buscarProdutoPorCodigo(codigoProduto);
+        
+        if (produtoEncontrado != null) {
+            System.out.print("Quantidade desejada: ");
+            int quantidade = scanner.nextInt();
+            scanner.nextLine();
+
+            if (quantidade <= produtoEncontrado.getqtd()) {
+                pedido.adicionarItem(produtoEncontrado, quantidade);
+                System.out.println(quantidade + "x " + produtoEncontrado.getName() + " adicionado ao pedido.");
+            } else {
+                System.out.println("Quantidade insuficiente em estoque.");
+            }
+        } else {
+            System.out.println("Produto não encontrado.");
+        }
+    }
+    
+    private static void removerItemDoPedido(Scanner scanner, Pedido pedido) {
+        System.out.println("\n--- REMOVER ITEM ---");
+        System.out.print("Código do produto para remover: ");
+        String codigoRemover = scanner.nextLine();
+        pedido.removerItem(codigoRemover);
+    }
+    
+    private static void atualizarQuantidadeItem(Scanner scanner, Pedido pedido) {
+        System.out.println("\n--- ATUALIZAR QUANTIDADE ---");
+        System.out.print("Código do produto para atualizar: ");
+        String codigoAtualizar = scanner.nextLine();
+        System.out.print("Nova quantidade: ");
+        int novaQtd = scanner.nextInt();
+        scanner.nextLine();
+        
+        pedido.atualizarQuantidade(codigoAtualizar, novaQtd);
+    }
+    
+    private static void visualizarResumo(Pedido pedido) {
         System.out.println("\n--- RESUMO DO PEDIDO ---");
-        System.out.println("Cliente: " + clienteDoPedido.getName() + " CPF: " + clienteDoPedido.getCPF());
-        System.out.println("Total do pedido: R$ " + pedido.calcularTotal());
+        System.out.println("Total dos itens: R$ " + pedido.calcularTotal());
         System.out.println("Frete total: R$ " + pedido.calcularFreteTotal());
-        double valorFinal = pedido.calcularTotal() + pedido.calcularFreteTotal();
-        System.out.println("Valor final a pagar: R$ " + valorFinal);
-        
-        System.out.print("\nEscolha a forma de pagamento (Cartao/Pix): ");
+        System.out.println("Valor final a pagar: R$ " + (pedido.calcularTotal() + pedido.calcularFreteTotal()));
+    }
+    
+    private static void finalizarCompra(Scanner scanner, Pedido pedido) {
+        System.out.println("\n--- FINALIZAR COMPRA ---");
+        System.out.print("Escolha a forma de pagamento (Cartao/Pix): ");
         String formaPagamento = scanner.nextLine();
         
-        if (formaPagamento.equalsIgnoreCase("Cartao")||formaPagamento.equalsIgnoreCase("C")||formaPagamento.equalsIgnoreCase("c")) {
-            Pagamento pagto = new PagamentoCartao(valorFinal);
+        if (formaPagamento.equalsIgnoreCase("Cartao") || formaPagamento.equalsIgnoreCase("C")) {
+            Pagamento pagto = new PagamentoCartao(pedido.calcularTotal() + pedido.calcularFreteTotal());
             pedido.realizarPagamento(pagto);
-        } else if (formaPagamento.equalsIgnoreCase("Pix")||formaPagamento.equalsIgnoreCase("p")||formaPagamento.equalsIgnoreCase("P")) {
-            Pagamento pagto = new PagamentoPix(valorFinal);
+        } else if (formaPagamento.equalsIgnoreCase("Pix") || formaPagamento.equalsIgnoreCase("P")) {
+            Pagamento pagto = new PagamentoPix(pedido.calcularTotal() + pedido.calcularFreteTotal());
             pedido.realizarPagamento(pagto);
         } else {
-            System.out.println("Forma de pagamento inválida. Pedido cancelado.");
+            System.out.println("Forma de pagamento inválida. Pedido não finalizado.");
         }
     }
 }
