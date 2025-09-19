@@ -63,7 +63,13 @@ public abstract class product {
       return this.price;
    } 
    public String getName(){
-   return this.name;
-}
+      return this.name;
+   }
+   public int getqtd(){
+      return this.quantidade;
+   }
+   public void setQuantidade(int quantidade) {
+      this.quantidade = quantidade;
+    }
    public abstract double frete();
 }

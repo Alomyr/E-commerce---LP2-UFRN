@@ -12,6 +12,9 @@ public class ItensPedidos{
     public double getSubtotal(){
         return this.product.getPrice() * this.quantidade;
     }
-
+    public product getProduto() {
+        return this.product;
+    }
+    
 }
 

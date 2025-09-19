@@ -16,6 +16,21 @@ public class Pedido {
         ItensPedidos novoItem = new ItensPedidos(produto, quantidade);
         this.itens.add(novoItem);
     }
+    public double calcularTotal(){
+        double total=0.0;
+         for (ItensPedidos item : itens) {
+            total += item.getSubtotal();
+        }
+        return total;
+    }
+      public double calcularFreteTotal() {
+        double freteTotal = 0.0;
+        for (ItensPedidos item : itens) {
+            // Chama o método frete() de cada produto (Polimorfismo!)
+            freteTotal += item.getProduto().frete();
+        }
+        return freteTotal;
+    }
 }
 
-// adicionar as formar de calcular frete adcionar isso no valor das coisas e arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados, fazer a parte de remocao dos produtos
+//  arrumar as formar de pagamento arrumar clientes, arrumar estoque e fazer o menu interativo na main posso fazer por maquina de estados, fazer a parte de remocao dos produtos
