@@ -15,33 +15,33 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        Customer cliente = new Customer("User", 12345678910L);
-        Stock estoque = new Stock();
-        List<Customer> clientes = new ArrayList<>();
+        Customer customer = new Customer("User", 12345678910L);
+        Stock stock = new Stock();
+        List<Customer> customers = new ArrayList<>();
         
         Scanner scanner = new Scanner(System.in);
         
 
-        int opcao = -1;
-        while (opcao != 0) {
+        int option = -1;
+        while (option != 0) {
             System.out.println("\n--- MENU PRINCIPAL ---");
             System.out.println("1. Gerenciar Estoque");
             System.out.println("2. Criar Novo Cliente");
             System.out.println("3. Fazer um Pedido");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
+            option = scanner.nextInt();
             scanner.nextLine();
             
-            switch (opcao) {
+            switch (option) {
                 case 1:
-                    gerenciarEstoque(scanner, estoque);
+                    manageStock(scanner, stock);
                     break;
                 case 2:
-                    criarCliente(scanner, clientes);
+                    creatCustomer(scanner, customers);
                     break;
                 case 3:
-                    fazerPedido(scanner, estoque, clientes);
+                    placeOrder(scanner, stock, customers);
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");
@@ -54,18 +54,18 @@ public class Main {
         scanner.close();
     }
     
-    public static void gerenciarEstoque(Scanner scanner, Stock estoque) {
-        int opcaoEstoque = -1;
-        while (opcaoEstoque != 0) {
+    public static void manageStock(Scanner scanner, Stock stock) {
+        int optionInStock = -1;
+        while (optionInStock != 0) {
             System.out.println("\n--- GERENCIAMENTO DE ESTOQUE ---");
             System.out.println("1. Adicionar Produto");
             System.out.println("2. Listar Produtos");
             System.out.println("0. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
-            opcaoEstoque = scanner.nextInt();
+            optionInStock = scanner.nextInt();
             scanner.nextLine();
 
-            switch (opcaoEstoque) {
+            switch (optionInStock) {
                 case 1:
                     System.out.print("Nome do Produto: ");
                     String nomeProduto = scanner.nextLine();
@@ -77,12 +77,12 @@ public class Main {
                     int quantidade = scanner.nextInt();
                     scanner.nextLine();
                     
-                    new ProductPhysical(nomeProduto, preco, peso, quantidade, estoque);
+                    new ProductPhysical(nomeProduto, preco, peso, quantidade, stock);
                     System.out.println("Produto adicionado ao estoque.");
                     break;
                 case 2:
                     System.out.println("\n--- PRODUTOS EM ESTOQUE ---");
-                    estoque.ListToItems();
+                    stock.ListToItems();
                     break;
                 case 0:
                     break;
@@ -92,49 +92,49 @@ public class Main {
         }
     }
     
-    public static void criarCliente(Scanner scanner, List<Customer> clientes) {
+    public static void creatCustomer(Scanner scanner, List<Customer> clientes) {
         System.out.println("\n--- CRIAR NOVO CLIENTE ---");
         System.out.print("Nome do Cliente: ");
-        String nomeCliente = scanner.nextLine();
+        String nameCustomer = scanner.nextLine();
         System.out.print("CPF do Cliente: ");
         long cpf = scanner.nextLong();
         scanner.nextLine();
         
-        Customer novoCliente = new Customer(nomeCliente, cpf);
-        clientes.add(novoCliente);
-        System.out.println("Cliente " + novoCliente.getName() + " cadastrado com sucesso.");
+        Customer newCostumer = new Customer(nameCustomer, cpf);
+        clientes.add(newCostumer);
+        System.out.println("Cliente " + newCostumer.getName() + " cadastrado com sucesso.");
     }
     
- public static void fazerPedido(Scanner scanner, Stock estoque, List<Customer> clientes) {
-        if (clientes.isEmpty()) {
+ public static void placeOrder(Scanner scanner, Stock stock, List<Customer> customer) {
+        if (customer.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado. Por favor, crie um cliente primeiro.");
             return;
         }
 
         System.out.println("\n--- INICIANDO UM NOVO PEDIDO ---");
         System.out.print("Digite o CPF do cliente para o pedido: ");
-        long cpfBusca = scanner.nextLong();
+        long cpfSearch = scanner.nextLong();
         scanner.nextLine();
         
-        Customer clienteDoPedido = null;
-        for (Customer c : clientes) {
-            if (c.getCPF() == cpfBusca) {
-                clienteDoPedido = c;
+        Customer placeToCustomer = null;
+        for (Customer c : customer) {
+            if (c.getCPF() == cpfSearch) {
+                placeToCustomer = c;
                 break;
             }
         }
         
-        if (clienteDoPedido == null) {
+        if (placeToCustomer == null) {
             System.out.println("Cliente não encontrado.");
             return;
         }
 
-        Order pedido = new Order(clienteDoPedido, estoque);
+        Order order = new Order(placeToCustomer, stock);
         
-        int opcaoPedido = -1;
-        while (opcaoPedido != 0) {
+        int RequestOption = -1;
+        while (RequestOption != 0) {
             System.out.println("\n--- GERENCIAR PEDIDO ---");
-            System.out.println("Cliente: " + clienteDoPedido.getName());
+            System.out.println("Cliente: " + placeToCustomer.getName());
             System.out.println("1. Adicionar Item");
             System.out.println("2. Remover Item");
             System.out.println("3. Atualizar Quantidade de um Item");
@@ -142,25 +142,25 @@ public class Main {
             System.out.println("5. Finalizar Compra e Pagar");
             System.out.println("0. Cancelar Pedido e Voltar");
             System.out.print("Escolha uma opção: ");
-            opcaoPedido = scanner.nextInt();
+            RequestOption = scanner.nextInt();
             scanner.nextLine();
             
-            switch (opcaoPedido) {
+            switch (RequestOption) {
                 case 1:
-                    adicionarItemAoPedido(scanner, estoque, pedido);
+                    adicionarItemAoPedido(scanner, stock, order);
                     break;
                 case 2:
-                    removerItemDoPedido(scanner, pedido);
+                    removeItemOfOrder(scanner, order);
                     break;
                 case 3:
-                    atualizarQuantidadeItem(scanner, pedido);
+                    upateAmountItem(scanner, order);
                     break;
                 case 4:
-                    visualizarResumo(pedido);
+                    viewSummary(order);
                     break;
                 case 5:
-                    finalizarCompra(scanner, pedido);
-                    opcaoPedido = 0;
+                    finalizarCompra(scanner, order);
+                    RequestOption = 0;
                     break;
                 case 0:
                     System.out.println("Pedido cancelado. Os itens foram devolvidos ao estoque.");
@@ -171,42 +171,42 @@ public class Main {
         }
     }
     
-    private static void adicionarItemAoPedido(Scanner scanner, Stock estoque, Order pedido) {
+    private static void adicionarItemAoPedido(Scanner scanner, Stock stock, Order order) {
         System.out.println("\n--- ADICIONAR ITEM ---");
         System.out.print("Código do produto: ");
-        String codigoProduto = scanner.nextLine();
+        String productCode = scanner.nextLine();
         
         System.out.print("Quantidade desejada: ");
-        int quantidade = scanner.nextInt();
+        int amount = scanner.nextInt();
         scanner.nextLine();
 
         // Chamada simplificada para o novo método sobrecarregado
-        pedido.addItem(codigoProduto, quantidade);
+        order.addItem(productCode, amount);
     }
     
-    private static void removerItemDoPedido(Scanner scanner, Order pedido) {
+    private static void removeItemOfOrder(Scanner scanner, Order order) {
         System.out.println("\n--- REMOVER ITEM ---");
         System.out.print("Código do produto para remover: ");
-        String codigoRemover = scanner.nextLine();
-        pedido.removeItem(codigoRemover);
+        String removeCode = scanner.nextLine();
+        order.removeItem(removeCode);
     }
     
-    private static void atualizarQuantidadeItem(Scanner scanner, Order pedido) {
+    private static void upateAmountItem(Scanner scanner, Order pedido) {
         System.out.println("\n--- ATUALIZAR QUANTIDADE ---");
         System.out.print("Código do produto para atualizar: ");
-        String codigoAtualizar = scanner.nextLine();
+        String upadateCode = scanner.nextLine();
         System.out.print("Nova quantidade: ");
-        int novaQtd = scanner.nextInt();
+        int newAmount = scanner.nextInt();
         scanner.nextLine();
         
-        pedido.updateQuantity(codigoAtualizar, novaQtd);
+        pedido.updateQuantity(upadateCode, newAmount);
     }
     
-    private static void visualizarResumo(Order pedido) {
+    private static void viewSummary(Order order) {
         System.out.println("\n--- RESUMO DO PEDIDO ---");
-        System.out.println("Total dos itens: R$ " + pedido.calculateTotal());
-        System.out.println("Frete total: R$ " + pedido.calculateTotalShipping());
-        System.out.println("Valor final a pagar: R$ " + (pedido.calculateTotal() + pedido.calculateTotalShipping()));
+        System.out.println("Total dos itens: R$ " + order.calculateTotal());
+        System.out.println("Frete total: R$ " + order.calculateTotalShipping());
+        System.out.println("Valor final a pagar: R$ " + (order.calculateTotal() + order.calculateTotalShipping()));
     }
     
     private static void finalizarCompra(Scanner scanner, Order pedido) {

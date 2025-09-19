@@ -59,3 +59,5 @@ Interaja com o Menu: Siga as instruções no terminal para navegar entre as opç
         │   │── PagamentoPix.java
         └── services/
             └── Estoque.java
+
+Possiveis melhorias para fazer uma maquina de estados para simplificar o render e suas alteraçoes
