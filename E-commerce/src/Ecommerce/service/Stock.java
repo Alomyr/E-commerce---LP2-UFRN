@@ -1,26 +1,25 @@
 package Ecommerce.service;
 
+import Ecommerce.model.product;
 import java.util.ArrayList;
 import java.util.List;
 
-import Ecommerce.model.product;
-
-public class Estoque {
+public class Stock {
 
     private List<product> itens = new ArrayList<>();
-    public void addItens(product product){
+    public void addItems(product product){
         this.itens.add(product);
     }
     public void remuveItens(product product){
         this.itens.remove(product);
     }
-        public void removerItensPorQuantidade(String codigo, int quantidadeParaRemover) {
+        public void removeItemsToAmount(String codigo, int quantidadeParaRemover) {
         for (product item : itens) {
             if (item.getCode().equals(codigo)) {
-                int novaQuantidade = item.getqtd() - quantidadeParaRemover;
-                if (novaQuantidade >= 0) {
-                    item.setQuantidade(novaQuantidade);
-                    System.out.println("Estoque atualizado para o produto " + item.getName() + ". Nova quantidade: " + novaQuantidade);
+                int newAmount = item.getqtd() - quantidadeParaRemover;
+                if (newAmount >= 0) {
+                    item.setAmount(newAmount);
+                    System.out.println("Estoque atualizado para o produto " + item.getName() + ". Nova quantidade: " + newAmount);
                     // if (novaQuantidade == 0) {
                     //     itens.remove(item);
                     // }
@@ -32,7 +31,7 @@ public class Estoque {
         }
         System.out.println("Produto com código " + codigo + " não encontrado no estoque.");
     }
-    public product buscarProdutoPorCodigo(String codigo) {
+    public product searchProductByCode(String codigo) {
         for (product item : this.itens) {
             if (item.getCode().equals(codigo)) {
                 return item;
@@ -40,7 +39,7 @@ public class Estoque {
         }
         return null;
     }
-    public void listarItens() {
+    public void ListToItems() {
         if (this.itens.isEmpty()) {
             System.out.println("O estoque está vazio.");
         } else {
@@ -54,12 +53,12 @@ public class Estoque {
             }
         }
     }
-    public void aumentarQuantidade(String codigo, int quantidadeParaAdicionar) {
+    public void increaseQuantity(String codigo, int quantidadeParaAdicionar) {
         for (product item : itens) {
             if (item.getCode().equals(codigo)) {
-                int novaQuantidade = item.getqtd() + quantidadeParaAdicionar;
-                item.setQuantidade(novaQuantidade);
-                System.out.println("Estoque atualizado para o produto " + item.getName() + ". Nova quantidade: " + novaQuantidade);
+                int newAmount = item.getqtd() + quantidadeParaAdicionar;
+                item.setAmount(newAmount);
+                System.out.println("Estoque atualizado para o produto " + item.getName() + ". Nova quantidade: " + newAmount);
                 return;
             }
         }

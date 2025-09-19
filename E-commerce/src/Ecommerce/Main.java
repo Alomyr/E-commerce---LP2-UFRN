@@ -1,12 +1,12 @@
 package Ecommerce;
 
 import Ecommerce.model.Customer;
-import Ecommerce.model.Pagamento;
-import Ecommerce.model.PagamentoCartao;
-import Ecommerce.model.PagamentoPix;
-import Ecommerce.model.Pedido;
-import Ecommerce.model.ProductF;
-import Ecommerce.service.Estoque;
+import Ecommerce.model.Order;
+import Ecommerce.model.Payment;
+import Ecommerce.model.PaymentCard;
+import Ecommerce.model.PaymentPix;
+import Ecommerce.model.ProductPhysical;
+import Ecommerce.service.Stock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +16,7 @@ public class Main {
 
 
         Customer cliente = new Customer("User", 12345678910L);
-        Estoque estoque = new Estoque();
+        Stock estoque = new Stock();
         List<Customer> clientes = new ArrayList<>();
         
         Scanner scanner = new Scanner(System.in);
@@ -54,7 +54,7 @@ public class Main {
         scanner.close();
     }
     
-    public static void gerenciarEstoque(Scanner scanner, Estoque estoque) {
+    public static void gerenciarEstoque(Scanner scanner, Stock estoque) {
         int opcaoEstoque = -1;
         while (opcaoEstoque != 0) {
             System.out.println("\n--- GERENCIAMENTO DE ESTOQUE ---");
@@ -77,12 +77,12 @@ public class Main {
                     int quantidade = scanner.nextInt();
                     scanner.nextLine();
                     
-                    new ProductF(nomeProduto, preco, peso, quantidade, estoque);
+                    new ProductPhysical(nomeProduto, preco, peso, quantidade, estoque);
                     System.out.println("Produto adicionado ao estoque.");
                     break;
                 case 2:
                     System.out.println("\n--- PRODUTOS EM ESTOQUE ---");
-                    estoque.listarItens();
+                    estoque.ListToItems();
                     break;
                 case 0:
                     break;
@@ -105,7 +105,7 @@ public class Main {
         System.out.println("Cliente " + novoCliente.getName() + " cadastrado com sucesso.");
     }
     
- public static void fazerPedido(Scanner scanner, Estoque estoque, List<Customer> clientes) {
+ public static void fazerPedido(Scanner scanner, Stock estoque, List<Customer> clientes) {
         if (clientes.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado. Por favor, crie um cliente primeiro.");
             return;
@@ -129,7 +129,7 @@ public class Main {
             return;
         }
 
-        Pedido pedido = new Pedido(clienteDoPedido, estoque);
+        Order pedido = new Order(clienteDoPedido, estoque);
         
         int opcaoPedido = -1;
         while (opcaoPedido != 0) {
@@ -171,7 +171,7 @@ public class Main {
         }
     }
     
-    private static void adicionarItemAoPedido(Scanner scanner, Estoque estoque, Pedido pedido) {
+    private static void adicionarItemAoPedido(Scanner scanner, Stock estoque, Order pedido) {
         System.out.println("\n--- ADICIONAR ITEM ---");
         System.out.print("Código do produto: ");
         String codigoProduto = scanner.nextLine();
@@ -181,17 +181,17 @@ public class Main {
         scanner.nextLine();
 
         // Chamada simplificada para o novo método sobrecarregado
-        pedido.adicionarItem(codigoProduto, quantidade);
+        pedido.addItem(codigoProduto, quantidade);
     }
     
-    private static void removerItemDoPedido(Scanner scanner, Pedido pedido) {
+    private static void removerItemDoPedido(Scanner scanner, Order pedido) {
         System.out.println("\n--- REMOVER ITEM ---");
         System.out.print("Código do produto para remover: ");
         String codigoRemover = scanner.nextLine();
-        pedido.removerItem(codigoRemover);
+        pedido.removeItem(codigoRemover);
     }
     
-    private static void atualizarQuantidadeItem(Scanner scanner, Pedido pedido) {
+    private static void atualizarQuantidadeItem(Scanner scanner, Order pedido) {
         System.out.println("\n--- ATUALIZAR QUANTIDADE ---");
         System.out.print("Código do produto para atualizar: ");
         String codigoAtualizar = scanner.nextLine();
@@ -199,27 +199,27 @@ public class Main {
         int novaQtd = scanner.nextInt();
         scanner.nextLine();
         
-        pedido.atualizarQuantidade(codigoAtualizar, novaQtd);
+        pedido.updateQuantity(codigoAtualizar, novaQtd);
     }
     
-    private static void visualizarResumo(Pedido pedido) {
+    private static void visualizarResumo(Order pedido) {
         System.out.println("\n--- RESUMO DO PEDIDO ---");
-        System.out.println("Total dos itens: R$ " + pedido.calcularTotal());
-        System.out.println("Frete total: R$ " + pedido.calcularFreteTotal());
-        System.out.println("Valor final a pagar: R$ " + (pedido.calcularTotal() + pedido.calcularFreteTotal()));
+        System.out.println("Total dos itens: R$ " + pedido.calculateTotal());
+        System.out.println("Frete total: R$ " + pedido.calculateTotalShipping());
+        System.out.println("Valor final a pagar: R$ " + (pedido.calculateTotal() + pedido.calculateTotalShipping()));
     }
     
-    private static void finalizarCompra(Scanner scanner, Pedido pedido) {
+    private static void finalizarCompra(Scanner scanner, Order pedido) {
         System.out.println("\n--- FINALIZAR COMPRA ---");
         System.out.print("Escolha a forma de pagamento (Cartao/Pix): ");
         String formaPagamento = scanner.nextLine();
         
         if (formaPagamento.equalsIgnoreCase("Cartao") || formaPagamento.equalsIgnoreCase("C")) {
-            Pagamento pagto = new PagamentoCartao(pedido.calcularTotal() + pedido.calcularFreteTotal());
-            pedido.realizarPagamento(pagto);
+            Payment pagto = new PaymentCard(pedido.calculateTotal() + pedido.calculateTotalShipping());
+            pedido.makePayment(pagto);
         } else if (formaPagamento.equalsIgnoreCase("Pix") || formaPagamento.equalsIgnoreCase("P")) {
-            Pagamento pagto = new PagamentoPix(pedido.calcularTotal() + pedido.calcularFreteTotal());
-            pedido.realizarPagamento(pagto);
+            Payment pagto = new PaymentPix(pedido.calculateTotal() + pedido.calculateTotalShipping());
+            pedido.makePayment(pagto);
         } else {
             System.out.println("Forma de pagamento inválida. Pedido não finalizado.");
         }

@@ -8,7 +8,7 @@ public abstract class product {
    private  String code;
    private int quantidade;
    private  double price;
-   private static final String CARACTERES_ALFABETICOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+   private static final String ALPHABETICAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
    private static final Random RANDOM = new Random();
 
    
@@ -24,18 +24,18 @@ public abstract class product {
       this.name=name;
       this.price=price;
       this.quantidade=qtd;
-      this.code = gerarCodigo();
+      this.code = generateCode();
 
    }
 
-   private static String gerarCodigo() {
+   private static String generateCode() {
         String parteFixa = "2025";
 
-        char letra1 = CARACTERES_ALFABETICOS.charAt(RANDOM.nextInt(CARACTERES_ALFABETICOS.length()));
+        char letra1 = ALPHABETICAL_CHARACTERS.charAt(RANDOM.nextInt(ALPHABETICAL_CHARACTERS.length()));
 
         int numero1 = RANDOM.nextInt(100);
 
-        char letra2 = CARACTERES_ALFABETICOS.charAt(RANDOM.nextInt(CARACTERES_ALFABETICOS.length()));
+        char letra2 = ALPHABETICAL_CHARACTERS.charAt(RANDOM.nextInt(ALPHABETICAL_CHARACTERS.length()));
 
         int numero2 = RANDOM.nextInt(10);
         
@@ -64,8 +64,8 @@ public abstract class product {
    public String getCode(){
    return this.code;
    }
-   public void setQuantidade(int quantidade) {
-      this.quantidade = quantidade;
+   public void setAmount(int amount) {
+      this.quantidade = amount;
     }
-   public abstract double frete();
+   public abstract double freight();
 }
